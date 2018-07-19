@@ -1,25 +1,25 @@
-import pygame
-
+import pygame, png, immagini
+from Maze import Maze
 
 
 class MainWindow:
     width  = 100
     height = 100
+    blockSize = 10
     title = ""
     display = None
     bg = None
     pixelArray = None
-    def __init__(self, title, bgFilename):
+    def __init__(self, title, width, height):
         self.title  = title
-        self.bg = pygame.image.load(bgFilename)
-        self.size = self.bg.get_rect().size
-        self.display = pygame.display.set_mode(self.size)
+        self.width = width*self.blockSize
+        self.height = height*self.blockSize
+        self.display = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(title)
-        self.setBg(self.bg,0,0)
         self.pixelArray = pygame.PixelArray(self.display)
 
     def _drawPixel(self, x, y, color):
-        if 0<=x<self.size[0] and 0<=y<self.size[1]:
+        if 0<=x<self.width and 0<=y<self.height:
             self.pixelArray[x, y] = color
 
     def drawPixel(self, x, y, color):
@@ -36,6 +36,10 @@ class MainWindow:
         for y in range(len(img)):
             for x in range(len(img)):
                 self._drawPixel(sx+x,sy+y, img[y][x])
+    def drawMaze(self, img, gb):
+        for y in range(0,len(img)*gb,gb):
+            for x in range(0,len(img[0])*gb,gb):
+                self.drawRectangle(x,y, gb,gb, img[y][x])
 
     def setBg(self,image,x,y):
         self.display.blit(image, (x, y))
@@ -43,22 +47,25 @@ class MainWindow:
 
 if __name__=='__main__':
     pygame.init()
-    window = MainWindow('labirinto','maze.png')
+    maze = Maze(50, 50)
 
+    window = MainWindow('labirinto',maze.width,maze.height)
     run = True
-    lsPixel = [(x,x) for x in range(window.size[0])]
-
-    mouseDown = False
+    setVisited = set()
     while run:
         pygame.time.Clock()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
                 break
-        if lsPixel != []:
-            pos = lsPixel.pop(0)
-            window.drawPixel(pos[0],pos[1], (255,0,0))
+        mazeImg = maze.getMaze()
+        coords = set(maze.getWay())
+        coords.update(set(maze.getVisited()))
+        for y,x in coords:
+             window.drawRectangle(y*window.blockSize,x*window.blockSize,window.blockSize,window.blockSize,
+                                  mazeImg[y][x])
         pygame.display.update()
+        maze.workOneStep()
 
     pygame.quit()
 
