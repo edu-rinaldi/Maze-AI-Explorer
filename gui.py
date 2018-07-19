@@ -51,7 +51,8 @@ if __name__=='__main__':
 
     window = MainWindow('labirinto',maze.width,maze.height)
     run = True
-    setVisited = set()
+    drawn = set()
+    queue = []
     while run:
         pygame.time.Clock()
         for event in pygame.event.get():
@@ -60,12 +61,16 @@ if __name__=='__main__':
                 break
         mazeImg = maze.getMaze()
         coords = set(maze.getWay())
-        coords.update(set(maze.getVisited()))
+        coords.update(maze.getVisited())
         for y,x in coords:
-             window.drawRectangle(y*window.blockSize,x*window.blockSize,window.blockSize,window.blockSize,
-                                  mazeImg[y][x])
+            if (y,x) not in drawn:
+                drawn.add((y,x))
+                queue.append((y,x))
+                window.drawRectangle(y*window.blockSize,x*window.blockSize,window.blockSize,window.blockSize,
+                                      mazeImg[y][x])
         pygame.display.update()
         maze.workOneStep()
+
 
     pygame.quit()
 
