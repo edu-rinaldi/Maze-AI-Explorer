@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 class Maze:
     wallRGB, wayRGB = (0, 0, 0), (255, 255, 255)
@@ -12,11 +12,18 @@ class Maze:
         self.width = width
         self.height = height
 
+        sx, sy = randint(1, self.width - 2), randint(1, self.height - 2)
+        if not sx % 2: sx+=1
+        if not sy % 2: sy+= 1
+
         # generate an empty maze
-        self.frontier = []
-        self.visited = {(1, 1)}
+        self.frontier = set()
+        self.visited = set()
+        self.toDraw = set()
         self.maze = []
-        self.ways = []
+
+        self.visited.add((sy, sx))
+        self.toDraw.add((sy, sx))
 
         for y in range(self.height):
             row = []
@@ -27,10 +34,9 @@ class Maze:
                     row.append(Maze.wayRGB)
             self.maze.append(row)
 
-        # pprint.pprint(self.maze)
-
         # starting position
-        self._addWalls(1, 1)
+        self._addWalls(sy, sx)
+        print(sy, sx, self.maze[sy][sx])
 
     def _clamp(self, n, minN, maxN):
         return min(max(minN, n), maxN)
@@ -40,60 +46,45 @@ class Maze:
             cell = (y + o[0], x + o[1])
             if self._range(cell[0], cell[1]) and cell not in self.visited and cell not in self.frontier and \
                     self.maze[cell[0]][cell[1]] == Maze.wayRGB:
-                self.frontier.append(cell)
+                self.frontier.add(cell)
 
-    def findVisitedNear(self, y, x):
+    def _findVisitedNear(self, y, x):
         return [(o[0] + y, o[1] + x) for o in Maze.offset if (o[0] + y, o[1] + x) in self.visited]
 
     def _range(self, y, x):
         return 0 <= x < self.width and 0 <= y < self.height
 
-    def work(self):
-        while len(self.frontier) > 0:
-            rand = random.randint(0, len(self.frontier) - 1)
-            cell = self.frontier.pop(rand)
-
-            near = self.findVisitedNear(cell[0], cell[1])
-            inmaze = near[random.randint(0, len(near) - 1)]
-
-            dy, dx = self._clamp(cell[0] - inmaze[0], -1, 1), self._clamp(cell[1] - inmaze[1], -1, 1)
-
-            if dy != 0: self.maze[inmaze[0] + dy][inmaze[1]] = Maze.wayRGB
-            if dx != 0: self.maze[inmaze[0]][inmaze[1] + dx] = Maze.wayRGB
-
-            self.visited.add(cell)
-
-            self._addWalls(cell[0], cell[1])
-
     def getMaze(self):
         return self.maze
-
-    def getVisited(self):
-        return self.visited
 
     def getFrontier(self):
         return self.frontier
 
-    def getWay(self):
-        return self.ways
+    def getToDraw(self):
+        return self.toDraw
+
+    def getColor(self, y, x):
+        return self.maze[y][x]
 
     def workOneStep(self):
+        self.toDraw.clear()
         if len(self.frontier) > 0:
-            rand = random.randint(0, len(self.frontier) - 1)
-            cell = self.frontier.pop(rand)
+            cell = self.frontier.pop()
 
-            near = self.findVisitedNear(cell[0], cell[1])
-            inmaze = near[random.randint(0, len(near) - 1)]
+            near = self._findVisitedNear(cell[0], cell[1])
+            inmaze = near[randint(0, len(near) - 1)]
 
             dy, dx = self._clamp(cell[0] - inmaze[0], -1, 1), self._clamp(cell[1] - inmaze[1], -1, 1)
 
             if dy != 0:
                 self.maze[inmaze[0] + dy][inmaze[1]] = Maze.wayRGB
-                self.ways.append((inmaze[0] + dy, inmaze[1]))
+                self.toDraw.add((inmaze[0] + dy, inmaze[1]))
             if dx != 0:
                 self.maze[inmaze[0]][inmaze[1] + dx] = Maze.wayRGB
-                self.ways.append((inmaze[0], inmaze[1] + dx))
+                self.toDraw.add((inmaze[0], inmaze[1] + dx))
+
             self.visited.add(cell)
+            self.toDraw.add(cell)
 
             self._addWalls(cell[0], cell[1])
 
