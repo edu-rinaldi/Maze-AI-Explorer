@@ -1,6 +1,7 @@
-import pygame, png, immagini
+import pygame
 from Maze import Maze
-import ga
+from ga import *
+
 class MainWindow:
     width = 100
     height = 100
@@ -48,12 +49,12 @@ if __name__=='__main__':
     window = MainWindow('labirinto', 50,50)
     window.genMaze()
 
-    finalPopulation = ga.ga(200, 50000, window.maze.getMaze(), (1, 1), (48, 48))
-    finalPopulation.sort(key=lambda x: x.fitness)
-    coords = finalPopulation[0].path
+    ga = GA(100, 200, 0.01, (1,1), (49,49), window.maze)
+
     run = True
+
     while run:
-        pygame.time.Clock().tick(30)
+        pygame.time.Clock()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -61,10 +62,14 @@ if __name__=='__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     """QUI VA GESTITO IL RESET CON IL TASTO R"""
-
-        if len(coords)>0:
-            x,y = coords.pop(0)
-            window.drawRectangle(x*window.blockSize, y*window.blockSize, window.blockSize, window.blockSize, (255,0,0))
+        # for y,x in p:
+        #     window.drawRectangle(x * window.blockSize, y * window.blockSize, window.blockSize, window.blockSize,
+        #                          (34,45,23))
+        ga.nextGen()
+        for p in ga.population:
+            #print(path.walk, path.directions)
+            for y,x in p.path:
+                window.drawRectangle(x*window.blockSize, y*window.blockSize, window.blockSize, window.blockSize, p.color)
         pygame.display.update()
 
     pygame.quit()
