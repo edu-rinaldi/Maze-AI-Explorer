@@ -36,7 +36,7 @@ class Maze:
 
         # starting position
         self._addWalls(sy, sx)
-        print(sy, sx, self.maze[sy][sx])
+        #print(sy, sx, self.maze[sy][sx])
 
     def _clamp(self, n, minN, maxN):
         return min(max(minN, n), maxN)

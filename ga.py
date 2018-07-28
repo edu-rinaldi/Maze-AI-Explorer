@@ -3,14 +3,18 @@ from Player import *
 class GA:
     population = []
     bestp = []
+    victory = False
+    bestPlayer = None
     def __init__(self, gen, popsize, mr, init, end, maze):
         self.gen = gen
+        self.curgen = 0
         self.popsize = popsize
         self.mr = mr
         self.init = init
         self.end = end
         self.bestp = pathfinding(init, end, maze.getMaze())
         self.initPopulation(init, end, maze)
+
 
     def initPopulation(self,init,end, maze):
         for i in range(self.popsize):
@@ -47,18 +51,17 @@ class GA:
             # parentB = self._pickParent()
             parentA,parentB = self._pickParents()
             child = parentA.crossover(parentB)
-            #child.improveDirections()
             selected += [child]
         self.population = selected
 
     def _mutation(self):
         for p in self.population:
             if random.random() <= self.mr:
-                p.mutate(0.5)
+                p.mutate()
 
 
     def nextGen(self):
-        self.gen+=1
+        self.curgen+=1
 
         #select and crossover
         self._selection()
@@ -68,6 +71,11 @@ class GA:
 
         # update fitness values for each path
         self._fitness()
-        print(max(self.population, key=lambda x: x.fitness).fitness)
+
+        self.bestPlayer = max(self.population, key=lambda x: x.fitness)
+        if self.bestPlayer.fitness==1:
+            self.victory = True
+
+
 
 

@@ -48,7 +48,7 @@ class Player:
         lp = self.path[-1]
         distance = len(pathfinding(lp,self.end,self.maze.getMaze())) if not self.win else 0
         # distance = manhattan(lp[1],lp[0], self.end[1], self.end[0])
-        self.fitness = mapFromTo(distance**2, self.maxdistance**2, 0, 0, 1)
+        self.fitness = mapFromTo(distance*distance, self.maxdistance*self.maxdistance, 0, 0, 1)
 
     def crossover(self, partner):
         child = Player(self.path[0],self.end, self.maze, self.bestpath)
@@ -58,7 +58,7 @@ class Player:
         # child.path = maxParent.path[:int(mapFromTo(random.random(),0,1,1,len(maxParent.path)))]
         return child
 
-    def mutate(self,mr):
+    def mutate(self):
         self.path = self.path[:int(mapFromTo(random.random(),0,1,1,len(self.path)))]
 
 
