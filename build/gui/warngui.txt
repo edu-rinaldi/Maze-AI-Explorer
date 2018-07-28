@@ -1,0 +1,47 @@
+missing module named 'multiprocessing.forking' - imported by c:\users\eduardo\appdata\local\programs\python\python36\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_multiprocessing.py
+missing module named multiprocessing.get_context - imported by multiprocessing, multiprocessing.pool, multiprocessing.managers, multiprocessing.sharedctypes
+missing module named multiprocessing.TimeoutError - imported by multiprocessing, multiprocessing.pool
+missing module named multiprocessing.BufferTooShort - imported by multiprocessing, multiprocessing.connection
+missing module named multiprocessing.AuthenticationError - imported by multiprocessing, multiprocessing.connection
+missing module named multiprocessing.set_start_method - imported by multiprocessing, multiprocessing.spawn
+missing module named multiprocessing.get_start_method - imported by multiprocessing, multiprocessing.spawn
+missing module named 'win32com.gen_py' - imported by win32com, c:\users\eduardo\appdata\local\programs\python\python36\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_win32comgenpy.py
+missing module named pyimod03_importers - imported by c:\users\eduardo\appdata\local\programs\python\python36\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_pkgres.py
+missing module named StringIO - imported by pkg_resources._vendor.six
+missing module named __builtin__ - imported by pkg_resources._vendor.pyparsing
+missing module named ordereddict - imported by pkg_resources._vendor.pyparsing
+missing module named 'pkg_resources.extern.pyparsing' - imported by pkg_resources._vendor.packaging.markers, pkg_resources._vendor.packaging.requirements
+missing module named 'com.sun' - imported by pkg_resources._vendor.appdirs
+missing module named com - imported by pkg_resources._vendor.appdirs
+missing module named __main__ - imported by pkg_resources
+missing module named pkg_resources.extern.packaging - imported by pkg_resources.extern, pkg_resources
+missing module named pkg_resources.extern.appdirs - imported by pkg_resources.extern, pkg_resources
+missing module named 'pkg_resources.extern.six.moves' - imported by pkg_resources, pkg_resources._vendor.packaging.requirements
+missing module named pkg_resources.extern.six - imported by pkg_resources.extern, pkg_resources
+missing module named resource - imported by posix, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named posix - imported by os, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named _posixsubprocess - imported by subprocess, multiprocessing.util, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named 'org.python' - imported by pickle, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py, xml.sax
+missing module named readline - imported by cmd, code, pdb, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+excluded module named _frozen_importlib - imported by importlib, importlib.abc, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named _winreg - imported by platform, pygame, pygame.sysfont, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py, pkg_resources._vendor.appdirs
+missing module named _scproxy - imported by urllib.request
+missing module named java - imported by platform, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named 'java.lang' - imported by platform, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py, xml.sax._exceptions
+missing module named vms_lib - imported by platform, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named termios - imported by tty, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py, getpass
+missing module named grp - imported by tarfile, shutil, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named org - imported by copy, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named pwd - imported by posixpath, tarfile, shutil, http.server, webbrowser, distutils.util, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py, netrc, getpass
+missing module named _dummy_threading - imported by dummy_threading, E:\Documenti\GitHub\Maze-Explorer-with-genetic-algorithm\gui.py
+missing module named copy_reg - imported by cStringIO, pygame
+missing module named 'pygame._view' - imported by pygame
+missing module named pygame.sdlmain_osx - imported by pygame, pygame.macosx
+missing module named OpenGL - imported by pygame
+missing module named numpy - imported by pygame._numpysurfarray, pygame._numpysndarray, pygame
+missing module named 'pygame.movie' - imported by pygame
+missing module named pygame.SRCALPHA - imported by pygame, pygame.ftfont
+missing module named Queue - imported by pygame.threads
+missing module named Py25Queue - imported by pygame.threads
+missing module named cStringIO - imported by pygame.compat

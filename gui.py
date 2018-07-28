@@ -1,7 +1,7 @@
-import pygame
+import pygame, os
 from Maze import Maze
 from ga import *
-
+import config as cf
 class MainWindow:
     width = 100
     height = 100
@@ -10,9 +10,10 @@ class MainWindow:
     display = None
     pixelArray = None
     maze = None
-    def __init__(self, title, width, height):
+    def __init__(self, title, width, height, blocksize):
         self.title  = title
         self.maze = Maze(width, height)
+        self.blockSize = blocksize
         self.width = self.maze.width*self.blockSize
         self.height = self.maze.height*self.blockSize
         self.display = pygame.display.set_mode((self.width, self.height))
@@ -44,32 +45,57 @@ class MainWindow:
                 break
             pygame.display.update()
             self.maze.workOneStep()
-if __name__=='__main__':
-    pygame.init()
-    window = MainWindow('labirinto', 50,50)
-    window.genMaze()
 
-    ga = GA(100, 200, 0.01, (1,1), (49,49), window.maze)
 
-    run = True
+"""
+    to change configuration, change config.py
+"""
+try:
 
-    while run:
-        pygame.time.Clock()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                break
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
-                    """QUI VA GESTITO IL RESET CON IL TASTO R"""
-        # for y,x in p:
-        #     window.drawRectangle(x * window.blockSize, y * window.blockSize, window.blockSize, window.blockSize,
-        #                          (34,45,23))
-        ga.nextGen()
-        for p in ga.population:
-            #print(path.walk, path.directions)
-            for y,x in p.path:
-                window.drawRectangle(x*window.blockSize, y*window.blockSize, window.blockSize, window.blockSize, p.color)
-        pygame.display.update()
+    if __name__=='__main__':
 
-    pygame.quit()
+        os.environ['SDL_VIDEO_CENTERED'] = '1'
+
+        pygame.init()
+        window = MainWindow(cf.WINDOW_TITLE, cf.MAZE_WIDTH, cf.MAZE_HEIGHT, cf.BLOCK_SIZE)
+        window.genMaze()
+
+        ga = GA(cf.GENERATIONS, cf.POPULATION_SIZE, cf.MUTATION_RATE, cf.START_COORDS, cf.END_COORDS, window.maze)
+
+        run = True
+
+        while run and ga.curgen<ga.gen and not ga.victory:
+            pygame.time.Clock()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    break
+            print("Current generation:" ,ga.curgen)
+            ga.nextGen()
+            toReset = set()
+            for p in ga.population:
+                for y,x in p.path:
+                    toReset.add((y,x))
+                    window.drawRectangle(x*window.blockSize, y*window.blockSize, window.blockSize, window.blockSize, p.color)
+            for y,x in toReset:
+                window.drawRectangle(x * window.blockSize, y * window.blockSize, window.blockSize, window.blockSize,
+                                     (255,255,255))
+            pygame.time.delay(500)
+            pygame.display.update()
+        print("Best path found", ga.bestPlayer)
+        run = True
+        while run:
+            pygame.time.Clock()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    break
+            for y,x in ga.bestPlayer.path:
+                pygame.time.Clock().tick(30)
+                window.drawRectangle(x * window.blockSize, y * window.blockSize, window.blockSize, window.blockSize,
+                                     p.color)
+
+        pygame.quit()
+except:
+    print("a")
+    input()

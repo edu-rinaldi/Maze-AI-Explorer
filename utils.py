@@ -61,9 +61,21 @@ def neighbours(x, map):
 
 
 def reconstruct_path(camefrom,current_node):
+    p = [current_node]
+    while camefrom[current_node] in camefrom:
+        current_node = camefrom[current_node]
+        p.extend([current_node])
+    return p
+
+
+
+def reconstruct_path2(camefrom,current_node):
     if camefrom[current_node] in camefrom:
         p = reconstruct_path(camefrom,camefrom[current_node])
         p.extend([current_node])
         return p
     else:
         return [current_node]
+
+
+{ (0,1): (1,2), (1,2):(2,1), }
