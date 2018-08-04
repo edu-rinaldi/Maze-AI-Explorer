@@ -16,7 +16,7 @@ This is a Python application that randomly generates a maze and then through a _
 It's **VERY** easy to run.
 There're two ways for running it:
 1. You can navigate to `dist/gui/` and the open `gui.exe`
-2. You should have installed [python3](https://www.python.org/downloads/) and [pygame](https://www.pygame.org/wiki/GettingStarted), then open cmd (or terminal if you're on unix based system) and type `python3 ./gui.py`.
+2. You should have installed [python3](https://www.python.org/downloads/) and [pygame](https://www.pygame.org/wiki/GettingStarted), then open cmd (or terminal if you're on linux or mac os) and type `python3 ./gui.py`.
 
 The advantage of using the second method is that you can change maze and genetic algorithm's config through the file `config.py`.
 
