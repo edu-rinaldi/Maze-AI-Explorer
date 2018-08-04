@@ -3,7 +3,7 @@
 This is a Python application that randomly generates a maze and then through a _genetic algorithm_ it find the path to the end.
 `Note that in the maze that will be generated there'll be only one path to the end`
 
-## How it works ?
+## How does it works ?
 1. The maze is generated via [Prim's algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm)
 2. The genetic algorithm's fitness function calculate each "Player" _real_ distance from the end, and it maps this value in this way:
 	```python
