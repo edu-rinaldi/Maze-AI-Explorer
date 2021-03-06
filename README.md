@@ -38,6 +38,5 @@ END_COORDS = (MAZE_HEIGHT-1,MAZE_WIDTH-1)	#end coords (you should use valid coor
 ```
 
 ## Video example 
-![gif](https://im2.ezgif.com/tmp/ezgif-2-1f59263730.gif)
 
 Link youtube [video](https://www.youtube.com/watch?v=KehZd5-NAlY)
